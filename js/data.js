@@ -6,12 +6,12 @@ import { GAME_DAY_FIELDS, GAME_DAY_WORLD, gameDayDefaults, isGameDay, paletteCol
 export { GAME_DAY_WORLD, isGameDay };
 
 export const sections = [
-  { id: 'her', number: '01', label: 'Her', note: 'The foundation', icon: '✦' },
-  { id: 'face', number: '02', label: 'Face + Hair', note: 'Beauty + crown', icon: '◒' },
-  { id: 'fashion', number: '03', label: 'Fashion', note: 'Head-to-toe look', icon: '◆' },
-  { id: 'attitude', number: '04', label: 'Attitude', note: 'Pose + energy', icon: '↗' },
-  { id: 'art', number: '05', label: 'Art Direction', note: 'The creative vision', icon: '▧' },
-  { id: 'production', number: '06', label: 'Production', note: 'Make it usable', icon: '✺' }
+  { id: 'her', number: '01', label: 'Her', mobileLabel: 'Her', note: 'The foundation', icon: '✦' },
+  { id: 'face', number: '02', label: 'Face + Hair', mobileLabel: 'Beauty', note: 'Beauty + crown', icon: '◒' },
+  { id: 'fashion', number: '03', label: 'Fashion', mobileLabel: 'Fashion', note: 'Head-to-toe look', icon: '◆' },
+  { id: 'attitude', number: '04', label: 'Attitude', mobileLabel: 'Energy', note: 'Pose + energy', icon: '↗' },
+  { id: 'art', number: '05', label: 'Art Direction', mobileLabel: 'Art', note: 'The creative vision', icon: '▧' },
+  { id: 'production', number: '06', label: 'Production', mobileLabel: 'Output', note: 'Make it usable', icon: '✺' }
 ];
 
 const textAreas = new Set(['qualityNotes']);

@@ -103,7 +103,7 @@ function escapeHtml(value = '') {
 function renderNav() {
   nav.innerHTML = sections.map(section => `
     <button class="nav-item ${state.section === section.id ? 'active' : ''}" data-section="${section.id}" aria-current="${state.section === section.id ? 'step' : 'false'}">
-      <span>${section.number}</span><b>${section.label}<small>${section.note}</small></b><i>${section.icon}</i>
+      <span>${section.number}</span><b><span class="nav-label">${section.label}</span><em>${section.mobileLabel}</em><small>${section.note}</small></b><i>${section.icon}</i>
     </button>`).join('');
 }
 

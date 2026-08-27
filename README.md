@@ -26,5 +26,6 @@ Open `http://localhost:4173`.
 - Saved looks stored privately in localStorage
 - Installable PWA shell and offline caching
 - Responsive desktop, tablet, and mobile layouts
+- Phone-app layout with a compact app bar, Quick/Studio switch, sticky actions, bottom tab navigation, safe-area support, and mobile bottom sheets
 
 The editorial portrait and app icon are original AI-generated assets created specifically for 3.0. No data is uploaded or transmitted by the app.

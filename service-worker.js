@@ -1,4 +1,4 @@
-const CACHE = 'baddie-look-lab-v9';
+const CACHE = 'baddie-look-lab-v10';
 const SHELL = ['./', './index.html', './styles.css', './js/app.js', './js/data.js', './js/catalog/data.js', './js/catalog/holidayData.js', './js/catalog/performanceData.js', './js/catalog/designData.js', './js/catalog/gameDayData.js', './manifest.webmanifest', './assets/images/studio-hero.png', './assets/images/app-icon-192.png', './assets/images/app-icon-512.png'];
 
 self.addEventListener('install', event => event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(SHELL)).then(() => self.skipWaiting())));
