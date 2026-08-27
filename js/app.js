@@ -257,6 +257,20 @@ function badGirlRemix() {
   setTimeout(() => panel.classList.remove('act-up'), 700);
 }
 
+function resetBuilder() {
+  state.section = 'her';
+  state.mode = 'studio';
+  state.values = cloneDefaults();
+  state.locks = new Set();
+  state.visited = new Set(['her']);
+  state.activeGroups = {};
+  $('#saveBtn').classList.remove('saved');
+  $('#saveBtn').textContent = '♡';
+  render();
+  toast('Builder reset. Saved looks are still safe.');
+  if (window.innerWidth < 700) window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function applyPreset(index) {
   const preset = presets[index];
   if (!preset) return;
@@ -460,6 +474,7 @@ $('#nextBtn').addEventListener('click', () => moveSection(1));
 $('#shuffleBtn').addEventListener('click', () => remix('all'));
 $('#newLookBtn').addEventListener('click', () => { state.locks.clear(); remix('all'); });
 $('#badGirlBtn').addEventListener('click', badGirlRemix);
+$('#resetBtn').addEventListener('click', resetBuilder);
 $('#makeBtn').addEventListener('click', openRecipe);
 $('#saveBtn').addEventListener('click', saveCurrent);
 $('#copyBtn').addEventListener('click', copyRecipe);

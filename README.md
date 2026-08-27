@@ -21,6 +21,7 @@ Open `http://localhost:4173`.
 - Four vibe presets
 - Per-field locks and lock-aware full remixing
 - “YOU A BAD GIRL” bold remix action for every unlocked choice
+- One-tap builder reset that clears current choices and locks without deleting saved looks
 - Production-aware recipe compiler with anatomy, originality, print, and game-day safeguards
 - Clipboard, Web Share, and TXT export
 - Saved looks stored privately in localStorage

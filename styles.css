@@ -67,9 +67,12 @@ button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-
 .workspace h1, .dialog-header h2 { margin: 0; font-size: clamp(34px, 4vw, 58px); line-height: .98; letter-spacing: -.055em; }
 .workspace h1 em, .dialog-header h2 em { font-family: var(--serif); font-weight: 400; }
 .completion { min-width: 120px; margin-bottom: 4px; }
-.completion span { display: block; margin-bottom: 7px; font-size: 9px; font-weight: 900; text-align: right; text-transform: uppercase; }
-.completion > div { height: 7px; overflow: hidden; border: 1px solid var(--ink); border-radius: 5px; background: var(--white); }
-.completion i { display: block; width: 0; height: 100%; background: var(--lime); transition: width .3s ease; }
+.completion-meta { display: flex; align-items: center; justify-content: flex-end; gap: 8px; margin-bottom: 7px; }
+.completion-meta span { display: block; font-size: 9px; font-weight: 900; text-align: right; text-transform: uppercase; }
+.completion-meta button { min-height: 24px; padding: 0 8px; border: 1px solid var(--ink); border-radius: 999px; background: var(--white); cursor: pointer; font-size: 8px; font-weight: 900; text-transform: uppercase; }
+.completion-meta button:hover { background: var(--lime); }
+.completion-track { height: 7px; overflow: hidden; border: 1px solid var(--ink); border-radius: 5px; background: var(--white); }
+.completion-track i { display: block; width: 0; height: 100%; background: var(--lime); transition: width .3s ease; }
 
 .preset-strip { display: flex; align-items: center; gap: 18px; margin: 31px 0 20px; padding: 11px 12px; border: 1.5px solid var(--ink); border-radius: 13px; background: var(--white); box-shadow: 4px 4px 0 rgba(23,23,23,.13); }
 .preset-strip > div:first-child { min-width: 107px; display: grid; gap: 2px; }
@@ -236,8 +239,10 @@ dialog::backdrop { background: rgba(23,23,23,.62); backdrop-filter: blur(6px); }
   .workspace-head { display: block; }
   .workspace h1 { font-size: 40px; }
   .completion { width: 100%; min-width: 0; margin: 15px 0 0; }
-  .completion span { margin-bottom: 5px; text-align: left; }
-  .completion > div { height: 6px; }
+  .completion-meta { justify-content: space-between; margin-bottom: 6px; }
+  .completion-meta span { text-align: left; }
+  .completion-meta button { min-height: 28px; padding: 0 10px; }
+  .completion-track { height: 6px; }
   .preset-strip { display: block; margin: 20px 0 14px; padding: 13px; border-radius: 17px; box-shadow: 3px 3px 0 rgba(23,23,23,.11); }
   .preset-list { margin-top: 9px; }
   .preset { min-height: 38px; padding: 0 13px; }
