@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#153ee8">
+  <meta name="description" content="A playful creative-direction studio for building original fashion artwork prompts.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Baddie Studio">
+  <title>Build a Baddie 3.0 — The Look Lab</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="assets/images/app-icon-192.png">
+  <link rel="preload" as="image" href="assets/images/studio-hero.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#builder">Skip to builder</a>
+  <div class="paper-noise" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Build a Baddie home">
+      <img src="assets/images/app-icon-192.png" alt="">
+      <span><b>BUILD A BADDIE</b><small>THE LOOK LAB · 3.0</small></span>
+    </a>
+    <div class="topbar-center" aria-label="Project status"><i></i> Your private creative studio</div>
+    <div class="header-actions">
+      <button class="button button-ghost" id="installBtn" hidden>Install app</button>
+      <button class="icon-button" id="savedBtn" aria-label="Open saved looks"><span>♡</span><b id="savedBadge">0</b></button>
+        <button class="button button-ink" id="newLookBtn">New look <span>↗</span></button>
+    </div>
+  </header>
+
+  <main class="app-layout">
+    <aside class="rail" aria-label="Builder navigation">
+      <div class="mode-toggle" role="group" aria-label="Builder detail">
+        <button data-mode="quick">Quick</button>
+        <button data-mode="studio" class="active">Studio</button>
+      </div>
+      <nav id="sectionNav"></nav>
+      <div class="rail-tip">
+        <span>PRO TIP</span>
+        <p>Lock what you love, then remix the rest.</p>
+      </div>
+    </aside>
+
+    <section class="workspace" id="builder">
+      <div class="workspace-head">
+        <div>
+          <p class="kicker" id="sectionKicker">01 — CAST YOUR MUSE</p>
+          <h1 id="sectionTitle">Build her <em>identity.</em></h1>
+        </div>
+        <div class="completion"><span id="completionText">0% styled</span><div><i id="completionBar"></i></div></div>
+      </div>
+
+      <section class="preset-strip" aria-label="Creative starters">
+        <div><span>START WITH A VIBE</span><small>Optional shortcuts</small></div>
+        <div id="presetList" class="preset-list"></div>
+      </section>
+
+      <div class="control-group-nav" id="controlGroupNav" aria-label="Controls in this section"></div>
+      <div id="fieldGrid" class="field-grid"></div>
+
+      <div class="workspace-footer">
+        <button class="button button-ghost" id="prevBtn">← Previous</button>
+        <p><span id="sectionProgress">1 of 6</span> · Every choice updates your recipe</p>
+        <button class="button button-coral" id="nextBtn">Next section <span>→</span></button>
+      </div>
+    </section>
+
+    <aside class="look-panel">
+      <div class="look-card" id="lookCard">
+        <div class="look-toolbar">
+          <span>LIVE LOOK BOARD</span>
+          <div><button class="mini-btn" id="shuffleBtn" title="Remix unlocked choices" aria-label="Remix unlocked choices">↻</button><button class="mini-btn" id="saveBtn" title="Save this look" aria-label="Save this look">♡</button></div>
+        </div>
+        <div class="portrait-wrap" id="portraitWrap">
+          <img src="assets/images/studio-hero.png" alt="Original editorial portrait of a glamorous adult Black woman">
+          <span class="tape tape-one" aria-hidden="true"></span>
+          <span class="sticker" id="attitudeSticker">UNBOTHERED<br>BRILLIANCE</span>
+          <span class="palette-dots" id="paletteDots" aria-label="Selected palette"></span>
+          <span class="issue">LOOK<br><b>№ 03</b></span>
+        </div>
+        <div class="look-caption">
+          <div><small>THE MUSE</small><strong id="museCaption">Creative director</strong></div>
+          <div><small>THE LOOK</small><strong id="lookCaption">Asymmetrical power suit</strong></div>
+        </div>
+        <div class="ingredient-row" id="ingredientRow"></div>
+      </div>
+
+      <button class="bad-girl-button" id="badGirlBtn"><span>⚡</span><b>YOU A BAD GIRL</b><small>Turn up every unlocked choice</small><i>↻</i></button>
+      <button class="make-button" id="makeBtn"><span>✦</span><b>MAKE THE RECIPE</b><small>Compile production-ready direction</small><i>↗</i></button>
+    </aside>
+  </main>
+
+  <dialog id="recipeDialog" class="sheet-dialog">
+    <form method="dialog" class="dialog-shell">
+      <button class="dialog-close" value="close" aria-label="Close">×</button>
+      <div class="dialog-header">
+        <p class="kicker">YOUR CREATIVE BLUEPRINT</p>
+        <h2>She’s ready for her <em>close-up.</em></h2>
+        <p>A production-aware prompt you can paste into your favorite image generator.</p>
+      </div>
+      <div class="recipe-tags" id="recipeTags"></div>
+      <pre id="recipeText"></pre>
+      <div class="dialog-actions">
+        <button type="button" class="button button-coral" id="copyBtn">Copy recipe</button>
+        <button type="button" class="button button-ghost" id="shareBtn">Share</button>
+        <button type="button" class="button button-ghost" id="downloadBtn">Download .txt</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="savedDialog" class="sheet-dialog saved-dialog">
+    <form method="dialog" class="dialog-shell">
+      <button class="dialog-close" value="close" aria-label="Close">×</button>
+      <div class="dialog-header"><p class="kicker">YOUR PRIVATE ARCHIVE</p><h2>Saved <em>looks.</em></h2><p>Stored only in this browser.</p></div>
+      <div id="savedGrid" class="saved-grid"></div>
+    </form>
+  </dialog>
+
+  <dialog id="installDialog" class="small-dialog">
+    <form method="dialog">
+      <button class="dialog-close" value="close" aria-label="Close">×</button>
+      <img src="assets/images/app-icon-192.png" alt="">
+      <h2>Take the studio with you.</h2>
+      <p id="installCopy">Install Build a Baddie from your browser menu for an app-like, offline experience.</p>
+      <button class="button button-ink" value="close">Got it</button>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
