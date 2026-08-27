@@ -1,9 +1,10 @@
 import { sections, presets, defaults, getFieldsForSection, shouldShowField, paletteFor, isGameDay, teamColorsFor, gameDayExpressionFor } from './data.js';
+import { drawFromShuffleBag, vaultItems, vaultTypes } from './vaultData.js';
 
 const $ = selector => document.querySelector(selector);
 const nav = $('#sectionNav');
 const fieldGrid = $('#fieldGrid');
-const storageKeys = { state: 'baddie3-state', saved: 'baddie3-saved' };
+const storageKeys = { state: 'baddie3-state', saved: 'baddie3-saved', vaultCycles: 'baddie3-vault-cycles-v1' };
 const cloneDefaults = () => structuredClone(defaults);
 
 const sectionHeadlines = {
@@ -98,6 +99,82 @@ function toast(message) {
 
 function escapeHtml(value = '') {
   return String(value).replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;' }[char]));
+}
+
+const vaultState = { type: 'dtf', pickedId: null };
+
+function getVaultCycles() {
+  try {
+    const value = JSON.parse(localStorage.getItem(storageKeys.vaultCycles));
+    return value && typeof value === 'object' ? value : {};
+  } catch { return {}; }
+}
+
+function setVaultCycles(value) {
+  try { localStorage.setItem(storageKeys.vaultCycles, JSON.stringify(value)); } catch {}
+}
+
+function vaultItemsFor(type = vaultState.type) {
+  return vaultItems.filter(item => item.type === type);
+}
+
+function normalizedCycle(type) {
+  const validIds = new Set(vaultItemsFor(type).map(item => item.id));
+  const saved = getVaultCycles()[type] || {};
+  return {
+    remaining: Array.isArray(saved.remaining) ? saved.remaining.filter(id => validIds.has(id)) : [],
+    last: validIds.has(saved.last) ? saved.last : null,
+    started: Boolean(saved.started)
+  };
+}
+
+function vaultStatusText() {
+  const cycle = normalizedCycle(vaultState.type);
+  const total = vaultItemsFor().length;
+  if (!cycle.started) return `${total} unseen ${vaultTypes[vaultState.type].label.toLowerCase()} ready for the first cycle.`;
+  if (!cycle.remaining.length) return `Cycle complete - all ${total} appeared once. The next pick starts a fresh shuffle.`;
+  return `${cycle.remaining.length} unseen ${cycle.remaining.length === 1 ? vaultTypes[vaultState.type].singular : vaultTypes[vaultState.type].label.toLowerCase()} ${cycle.remaining.length === 1 ? 'remains' : 'remain'} in this cycle.`;
+}
+
+function vaultCard(item, featured = false) {
+  const filename = item.file.split('/').pop();
+  return `<div class="vault-art ${featured ? 'featured' : ''}">
+    <div class="vault-art-image"><img src="${item.file}" alt="${escapeHtml(item.title)} transparent PNG artwork" loading="${featured ? 'eager' : 'lazy'}"></div>
+    <div class="vault-art-copy"><small>TRANSPARENT PNG</small><h3>${escapeHtml(item.title)}</h3><p>${item.tags.map(escapeHtml).join(' / ')}</p></div>
+    <div class="vault-art-actions"><a class="button button-coral" href="${item.file}" download="${filename}">Download PNG</a><a class="button button-ghost" href="${item.file}" target="_blank" rel="noopener">Full size</a></div>
+  </div>`;
+}
+
+function renderVault() {
+  const items = vaultItemsFor();
+  document.querySelectorAll('[data-vault-type]').forEach(button => {
+    const active = button.dataset.vaultType === vaultState.type;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-selected', String(active));
+  });
+  $('#vaultCycleStatus').textContent = vaultStatusText();
+  $('#vaultGrid').innerHTML = items.map(item => vaultCard(item)).join('');
+  const picked = vaultItems.find(item => item.id === vaultState.pickedId && item.type === vaultState.type);
+  $('#vaultPick').hidden = !picked;
+  $('#vaultPick').innerHTML = picked ? `<p class="kicker">YOUR NO-REPEAT PICK</p>${vaultCard(picked, true)}` : '';
+}
+
+function randomVaultPick() {
+  const items = vaultItemsFor();
+  if (!items.length) return;
+  const allCycles = getVaultCycles();
+  const result = drawFromShuffleBag(items.map(item => item.id), normalizedCycle(vaultState.type));
+  const nextId = result.id;
+  allCycles[vaultState.type] = result.cycle;
+  setVaultCycles(allCycles);
+  vaultState.pickedId = nextId;
+  renderVault();
+  $('#vaultPick').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function openVault() {
+  renderVault();
+  $('#vaultDialog').showModal();
 }
 
 function renderNav() {
@@ -440,6 +517,9 @@ document.addEventListener('click', event => {
   if (load) { loadSaved(load.dataset.loadSaved); return; }
   const remove = event.target.closest('[data-delete-saved]');
   if (remove) deleteSaved(remove.dataset.deleteSaved);
+  const vaultType = event.target.closest('[data-vault-type]');
+  if (vaultType) { vaultState.type = vaultType.dataset.vaultType; vaultState.pickedId = null; renderVault(); }
+  if (event.target.closest('[data-close-vault]')) $('#vaultDialog').close();
 });
 
 fieldGrid.addEventListener('change', event => {
@@ -481,6 +561,8 @@ $('#copyBtn').addEventListener('click', copyRecipe);
 $('#shareBtn').addEventListener('click', shareRecipe);
 $('#downloadBtn').addEventListener('click', downloadRecipe);
 $('#savedBtn').addEventListener('click', () => { renderSaved(); $('#savedDialog').showModal(); });
+$('#vaultBtn').addEventListener('click', openVault);
+$('#vaultRandomBtn').addEventListener('click', randomVaultPick);
 
 document.querySelectorAll('dialog').forEach(dialog => dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); }));
 
@@ -495,3 +577,4 @@ if ('serviceWorker' in navigator) window.addEventListener('load', () => navigato
 
 updateSavedBadge();
 render();
+if (location.hash === '#vault') openVault();

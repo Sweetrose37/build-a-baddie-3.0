@@ -26,6 +26,7 @@
     <div class="topbar-center" aria-label="Project status"><i></i> Your private creative studio</div>
     <div class="header-actions">
       <button class="button button-ghost" id="installBtn" hidden>Install app</button>
+      <button class="icon-button vault-launch" id="vaultBtn" aria-label="Open ready-to-use art vault" title="Art Vault"><span aria-hidden="true">&#10022;</span><b>24</b></button>
       <button class="icon-button" id="savedBtn" aria-label="Open saved looks"><span>♡</span><b id="savedBadge">0</b></button>
         <button class="button button-ink" id="newLookBtn">New look <span>↗</span></button>
     </div>
@@ -120,6 +121,32 @@
       <div class="dialog-header"><p class="kicker">YOUR PRIVATE ARCHIVE</p><h2>Saved <em>looks.</em></h2><p>Stored only in this browser.</p></div>
       <div id="savedGrid" class="saved-grid"></div>
     </form>
+  </dialog>
+
+  <dialog id="vaultDialog" class="sheet-dialog vault-dialog">
+    <div class="dialog-shell">
+      <button class="dialog-close" type="button" data-close-vault aria-label="Close">&times;</button>
+      <div class="dialog-header vault-header">
+        <p class="kicker">READY-TO-USE PNG ART</p>
+        <h2>The <em>Art Vault.</em></h2>
+        <p>Original transparent DTF designs and stickers. Pick one or let Surprise Me run a no-repeat cycle.</p>
+      </div>
+      <div class="vault-tabs" role="tablist" aria-label="Art type">
+        <button type="button" class="active" data-vault-type="dtf" role="tab" aria-selected="true">DTF Designs <b>12</b></button>
+        <button type="button" data-vault-type="sticker" role="tab" aria-selected="false">Stickers <b>12</b></button>
+      </div>
+      <section class="vault-random" aria-labelledby="vaultRandomTitle">
+        <div>
+          <p class="kicker">NO-REPEAT SHUFFLE BAG</p>
+          <h3 id="vaultRandomTitle">Surprise me.</h3>
+          <p id="vaultCycleStatus">12 unseen designs remain in this cycle.</p>
+        </div>
+        <button type="button" class="button button-coral" id="vaultRandomBtn">Pick a random one <span>&#8635;</span></button>
+      </section>
+      <article class="vault-pick" id="vaultPick" hidden aria-live="polite"></article>
+      <div class="vault-grid" id="vaultGrid"></div>
+      <p class="vault-note">PNG files have real transparency. Always confirm final print size and color settings with your DTF printer.</p>
+    </div>
   </dialog>
 
   <dialog id="installDialog" class="small-dialog">

@@ -181,6 +181,38 @@ dialog::backdrop { background: rgba(23,23,23,.62); backdrop-filter: blur(6px); }
 .saved-card div { display: flex; gap: 6px; }
 .saved-card button { min-height: 32px; border: 1px solid var(--ink); border-radius: 8px; background: var(--paper); cursor: pointer; font-size: 9px; font-weight: 850; text-transform: uppercase; }
 .saved-card button:first-child { flex: 1; background: var(--lime); }
+.vault-launch { border-radius: 13px; background: var(--blue); color: white; }
+.vault-launch b { color: var(--ink); }
+.vault-dialog { width: min(1080px, calc(100vw - 28px)); }
+.vault-dialog .dialog-shell { padding: clamp(24px, 4vw, 42px); }
+.vault-header h2 { max-width: 760px; }
+.vault-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin: 24px 0 14px; padding: 4px; border: 1.5px solid var(--ink); border-radius: 15px; background: var(--white); }
+.vault-tabs button { min-height: 44px; border: 0; border-radius: 11px; background: transparent; cursor: pointer; font-size: 11px; font-weight: 950; text-transform: uppercase; letter-spacing: .05em; }
+.vault-tabs button.active { color: white; background: var(--blue); box-shadow: 2px 2px 0 var(--ink); }
+.vault-tabs b { display: inline-grid; place-items: center; min-width: 23px; height: 23px; margin-left: 6px; padding: 0 5px; border: 1px solid currentColor; border-radius: 99px; font-size: 8px; }
+.vault-random { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 18px 20px; border: 2px solid var(--ink); border-radius: 17px; background: var(--lime); box-shadow: 4px 4px 0 var(--ink); }
+.vault-random .kicker { color: var(--ink); }
+.vault-random h3 { margin: 0; font: italic 28px/1 var(--serif); }
+.vault-random p:last-child { margin: 7px 0 0; font-size: 10px; }
+.vault-random .button { flex: 0 0 auto; }
+.vault-pick { margin-top: 22px; padding: 16px; border: 2px dashed var(--blue); border-radius: 20px; background: rgba(21,62,232,.06); }
+.vault-pick > .kicker { margin: 0 0 10px; }
+.vault-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 13px; margin-top: 22px; }
+.vault-art { min-width: 0; overflow: hidden; display: flex; flex-direction: column; border: 1.5px solid var(--ink); border-radius: 17px; background: var(--white); }
+.vault-art-image { aspect-ratio: 1 / 1; display: grid; place-items: center; overflow: hidden; padding: 10px; background-color: #ded8cc; background-image: linear-gradient(45deg, rgba(255,255,255,.7) 25%, transparent 25%), linear-gradient(-45deg, rgba(255,255,255,.7) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, rgba(255,255,255,.7) 75%), linear-gradient(-45deg, transparent 75%, rgba(255,255,255,.7) 75%); background-position: 0 0, 0 9px, 9px -9px, -9px 0; background-size: 18px 18px; border-bottom: 1.5px solid var(--ink); }
+.vault-art-image img { width: 100%; height: 100%; display: block; object-fit: contain; filter: drop-shadow(0 5px 5px rgba(23,23,23,.2)); }
+.vault-art-copy { flex: 1; padding: 13px 13px 9px; }
+.vault-art-copy small { color: var(--blue); font-size: 7px; font-weight: 950; letter-spacing: .13em; }
+.vault-art-copy h3 { margin: 5px 0 4px; font: italic 20px/1 var(--serif); }
+.vault-art-copy p { margin: 0; color: var(--muted); font-size: 8px; text-transform: uppercase; }
+.vault-art-actions { display: flex; gap: 6px; padding: 0 13px 13px; }
+.vault-art-actions .button { min-height: 34px; display: inline-flex; align-items: center; justify-content: center; flex: 1; padding: 0 8px; text-decoration: none; font-size: 8px; text-align: center; }
+.vault-art.featured { display: grid; grid-template-columns: minmax(180px, .7fr) 1fr; grid-template-rows: 1fr auto; }
+.vault-art.featured .vault-art-image { grid-row: 1 / 3; aspect-ratio: 1 / 1; border-right: 1.5px solid var(--ink); border-bottom: 0; }
+.vault-art.featured .vault-art-copy { align-self: end; padding: 18px; }
+.vault-art.featured .vault-art-copy h3 { font-size: 31px; }
+.vault-art.featured .vault-art-actions { padding: 0 18px 18px; }
+.vault-note { margin: 18px 0 0; color: var(--muted); font: italic 11px/1.5 var(--serif); text-align: center; }
 .small-dialog { width: min(400px, calc(100vw - 28px)); }
 .small-dialog form { position: relative; padding: 35px; border: 2px solid var(--ink); border-radius: 22px; background: var(--paper); text-align: center; box-shadow: 8px 8px 0 var(--blue); }
 .small-dialog img { width: 80px; border: 2px solid var(--ink); border-radius: 22px; }
@@ -220,7 +252,7 @@ dialog::backdrop { background: rgba(23,23,23,.62); backdrop-filter: blur(6px); }
   .brand img { width: 40px; height: 40px; border-radius: 12px; }
   .brand b { font-size: 11px; }
   .brand small { font-size: 7px; }
-  .header-actions { gap: 0; }
+  .header-actions { gap: 6px; }
   #installBtn, #newLookBtn { display: none !important; }
   .icon-button { width: 40px; height: 40px; }
   .app-layout { display: block; }
@@ -261,6 +293,21 @@ dialog::backdrop { background: rgba(23,23,23,.62); backdrop-filter: blur(6px); }
   .look-card { border-radius: 20px; box-shadow: 5px 5px 0 var(--ink); }
   .bad-girl-button, .make-button { min-height: 68px; border-radius: 18px; }
   .saved-grid { grid-template-columns: 1fr; }
+  .vault-dialog .dialog-shell { padding: 32px 14px calc(24px + env(safe-area-inset-bottom)); }
+  .vault-header h2 { font-size: 39px; }
+  .vault-tabs { position: sticky; top: -32px; z-index: 1; margin-top: 18px; background: var(--paper); }
+  .vault-random { align-items: stretch; flex-direction: column; padding: 16px; }
+  .vault-random .button { width: 100%; }
+  .vault-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 9px; }
+  .vault-art-copy { padding: 10px 9px 7px; }
+  .vault-art-copy h3 { font-size: 16px; }
+  .vault-art-actions { flex-direction: column; padding: 0 9px 9px; }
+  .vault-art-actions .button { flex: none; width: 100%; }
+  .vault-art.featured { display: block; }
+  .vault-art.featured .vault-art-image { aspect-ratio: 4 / 3; border-right: 0; border-bottom: 1.5px solid var(--ink); }
+  .vault-art.featured .vault-art-copy { padding: 14px 13px 9px; }
+  .vault-art.featured .vault-art-copy h3 { font-size: 24px; }
+  .vault-art.featured .vault-art-actions { flex-direction: row; padding: 0 13px 13px; }
   .sheet-dialog { width: 100%; max-height: 92dvh; margin: auto 0 0; }
   .dialog-shell { max-height: 92dvh; padding: 34px 18px calc(24px + env(safe-area-inset-bottom)); border-right: 0; border-bottom: 0; border-left: 0; border-radius: 24px 24px 0 0; box-shadow: none; }
   .toast { bottom: calc(82px + env(safe-area-inset-bottom)); max-width: calc(100vw - 28px); text-align: center; }

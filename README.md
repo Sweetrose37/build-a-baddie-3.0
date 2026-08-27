@@ -22,6 +22,9 @@ Open `http://localhost:4173`.
 - Per-field locks and lock-aware full remixing
 - “YOU A BAD GIRL” bold remix action for every unlocked choice
 - One-tap builder reset that clears current choices and locks without deleting saved looks
+- Ready-to-use Art Vault with 12 transparent DTF PNG designs and 12 transparent sticker PNGs
+- Persistent no-repeat shuffle bags for DTF and sticker categories; every item appears once before a new cycle begins
+- Direct PNG downloads and full-size previews from desktop or phone
 - Production-aware recipe compiler with anatomy, originality, print, and game-day safeguards
 - Clipboard, Web Share, and TXT export
 - Saved looks stored privately in localStorage
@@ -29,4 +32,4 @@ Open `http://localhost:4173`.
 - Responsive desktop, tablet, and mobile layouts
 - Phone-app layout with a compact app bar, Quick/Studio switch, sticky actions, bottom tab navigation, safe-area support, and mobile bottom sheets
 
-The editorial portrait and app icon are original AI-generated assets created specifically for 3.0. No data is uploaded or transmitted by the app.
+The editorial portrait, app icon, and all 24 Art Vault files are original AI-generated assets created specifically for 3.0. No data is uploaded or transmitted by the app.
